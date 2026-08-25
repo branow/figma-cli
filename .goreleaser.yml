@@ -1,0 +1,65 @@
+version: 2
+
+project_name: figma
+
+builds:
+  - main: .
+    binary: figma
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X github.com/branow/figma-cli/cmd.version={{.Version}}
+
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
+
+homebrew_casks:
+  - name: figma
+    repository:
+      owner: branow
+      name: homebrew-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    directory: Casks
+    homepage: https://github.com/branow/figma-cli
+    description: Command-line interface for the Figma REST API
+    # The binaries are not signed/notarized with an Apple Developer ID, so
+    # strip the quarantine attribute Homebrew puts on cask downloads;
+    # otherwise Gatekeeper refuses to run figma.
+    hooks:
+      post:
+        install: |
+          if File.executable?("/usr/bin/xattr")
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/figma"]
+          end
+
+nfpms:
+  - package_name: figma
+    formats: [deb, rpm, apk]
+    maintainer: Orest Bodnar <branow.code@gmail.com>
+    homepage: https://github.com/branow/figma-cli
+    description: Command-line interface for the Figma REST API
+    license: MIT
+    bindir: /usr/bin
+
+scoops:
+  - name: figma
+    repository:
+      owner: branow
+      name: scoop-bucket
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    directory: bucket
+    homepage: https://github.com/branow/figma-cli
+    description: Command-line interface for the Figma REST API
+    license: MIT
+
+changelog:
+  use: git

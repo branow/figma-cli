@@ -1,0 +1,3339 @@
+{
+  "operations": [
+    {
+      "id": "deleteComment",
+      "method": "DELETE",
+      "path": "/v1/files/{file_key}/comments/{comment_id}",
+      "summary": "Delete a comment",
+      "pathParams": [
+        {
+          "name": "comment_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "deleteCommentReaction",
+      "method": "DELETE",
+      "path": "/v1/files/{file_key}/comments/{comment_id}/reactions",
+      "summary": "Delete a reaction",
+      "pathParams": [
+        {
+          "name": "comment_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "emoji",
+          "in": "query",
+          "type": "Emoji",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "deleteDevResource",
+      "method": "DELETE",
+      "path": "/v1/files/{file_key}/dev_resources/{dev_resource_id}",
+      "summary": "Delete dev resource",
+      "pathParams": [
+        {
+          "name": "dev_resource_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "deleteWebhook",
+      "method": "DELETE",
+      "path": "/v2/webhooks/{webhook_id}",
+      "summary": "Delete a webhook",
+      "pathParams": [
+        {
+          "name": "webhook_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "plan_api_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status",
+          "required": true
+        },
+        {
+          "name": "team_id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getActivityLogs",
+      "method": "GET",
+      "path": "/v1/activity_logs",
+      "summary": "Get activity logs",
+      "query": [
+        {
+          "name": "end_time",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "events",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "order",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "start_time",
+          "in": "query",
+          "type": "number"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean"
+        },
+        {
+          "name": "meta",
+          "type": "object"
+        },
+        {
+          "name": "status",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "id": "getAiUsageDaily",
+      "method": "GET",
+      "path": "/v1/ai_usage/daily",
+      "summary": "Get daily AI credit usage",
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "end_date",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "start_date",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "user_email",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "has_next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "next_cursor",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "type": "AiUsageDailyRow[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getCommentReactions",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/comments/{comment_id}/reactions",
+      "summary": "Get reactions for a comment",
+      "pathParams": [
+        {
+          "name": "comment_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "pagination",
+          "type": "ResponsePagination",
+          "required": true
+        },
+        {
+          "name": "reactions",
+          "type": "Reaction[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getComments",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/comments",
+      "summary": "Get comments in a file",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "as_md",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "response": [
+        {
+          "name": "comments",
+          "type": "Comment[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getComponent",
+      "method": "GET",
+      "path": "/v1/components/{key}",
+      "summary": "Get component",
+      "pathParams": [
+        {
+          "name": "key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "PublishedComponent",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getComponentSet",
+      "method": "GET",
+      "path": "/v1/component_sets/{key}",
+      "summary": "Get component set",
+      "pathParams": [
+        {
+          "name": "key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "PublishedComponentSet",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getDevResources",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/dev_resources",
+      "summary": "Get dev resources",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "node_ids",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "dev_resources",
+          "type": "DevResource[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getDeveloperLogs",
+      "method": "POST",
+      "path": "/v1/developer_logs",
+      "summary": "Get developer logs",
+      "body": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "date_range",
+          "type": "string"
+        },
+        {
+          "name": "event_source",
+          "type": "string"
+        },
+        {
+          "name": "ip_address",
+          "type": "string"
+        },
+        {
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "name": "token",
+          "type": "string"
+        },
+        {
+          "name": "token_name",
+          "type": "string"
+        },
+        {
+          "name": "token_type",
+          "type": "string"
+        },
+        {
+          "name": "user_email",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFile",
+      "method": "GET",
+      "path": "/v1/files/{file_key}",
+      "summary": "Get file JSON",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "branch_data",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "depth",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "geometry",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "ids",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "plugin_data",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "branches",
+          "type": "object[]"
+        },
+        {
+          "name": "componentSets",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "components",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "document",
+          "type": "DocumentNode",
+          "required": true
+        },
+        {
+          "name": "editorType",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "lastModified",
+          "type": "date-time",
+          "required": true
+        },
+        {
+          "name": "linkAccess",
+          "type": "string"
+        },
+        {
+          "name": "mainFileKey",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "role",
+          "type": "Role",
+          "required": true
+        },
+        {
+          "name": "schemaVersion",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "styles",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "thumbnailUrl",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileComponentSets",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/component_sets",
+      "summary": "Get file component sets",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileComponents",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/components",
+      "summary": "Get file components",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileMeta",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/meta",
+      "summary": "Get file metadata",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "file",
+          "type": "object",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileNodes",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/nodes",
+      "summary": "Get file JSON for specific nodes",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "depth",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "geometry",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "ids",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "plugin_data",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "editorType",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "lastModified",
+          "type": "date-time",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "nodes",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "role",
+          "type": "Role",
+          "required": true
+        },
+        {
+          "name": "thumbnailUrl",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileStyles",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/styles",
+      "summary": "Get file styles",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFileVersions",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/versions",
+      "summary": "Get versions of a file",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "after",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "page_size",
+          "in": "query",
+          "type": "number"
+        }
+      ],
+      "response": [
+        {
+          "name": "pagination",
+          "type": "ResponsePagination",
+          "required": true
+        },
+        {
+          "name": "versions",
+          "type": "Version[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFolderFiles",
+      "method": "GET",
+      "path": "/v2/folders/{folder_id}/files",
+      "summary": "Get files in a folder",
+      "pathParams": [
+        {
+          "name": "folder_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "branch_data",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "response": [
+        {
+          "name": "files",
+          "type": "object[]",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFolderFolders",
+      "method": "GET",
+      "path": "/v2/folders/{folder_id}/folders",
+      "summary": "Get subfolders in a folder",
+      "pathParams": [
+        {
+          "name": "folder_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "folders",
+          "type": "Folder[]",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getFolderMeta",
+      "method": "GET",
+      "path": "/v2/folders/{folder_id}/meta",
+      "summary": "Get folder metadata",
+      "pathParams": [
+        {
+          "name": "folder_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "created_at",
+          "type": "date-time",
+          "required": true
+        },
+        {
+          "name": "file_count",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getImageFills",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/images",
+      "summary": "Get image fills",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getImages",
+      "method": "GET",
+      "path": "/v1/images/{file_key}",
+      "summary": "Render images of file nodes",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "contents_only",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "format",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "ids",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "scale",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "svg_include_id",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "svg_include_node_id",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "svg_outline_text",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "svg_simplify_stroke",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "use_absolute_bounds",
+          "in": "query",
+          "type": "boolean"
+        },
+        {
+          "name": "version",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "err",
+          "type": "null",
+          "required": true
+        },
+        {
+          "name": "images",
+          "type": "object",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsComponentActions",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/component/actions",
+      "summary": "Get library analytics component action data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "end_date",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsComponentUsages",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/component/usages",
+      "summary": "Get library analytics component usage data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsStyleActions",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/style/actions",
+      "summary": "Get library analytics style action data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "end_date",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsStyleUsages",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/style/usages",
+      "summary": "Get library analytics style usage data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsVariableActions",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/variable/actions",
+      "summary": "Get library analytics variable action data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "end_date",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLibraryAnalyticsVariableUsages",
+      "method": "GET",
+      "path": "/v1/analytics/libraries/{file_key}/variable/usages",
+      "summary": "Get library analytics variable usage data.",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "group_by",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "cursor",
+          "type": "string"
+        },
+        {
+          "name": "next_page",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "rows",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getLocalVariables",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/variables/local",
+      "summary": "Get local variables",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getMe",
+      "method": "GET",
+      "path": "/v1/me",
+      "summary": "Get current user",
+      "response": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "handle",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "img_url",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getOEmbed",
+      "method": "GET",
+      "path": "/v1/oembed",
+      "summary": "Get oEmbed data",
+      "query": [
+        {
+          "name": "maxheight",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "maxwidth",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "url",
+          "in": "query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "cache_age",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "folder_name",
+          "type": "string"
+        },
+        {
+          "name": "height",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "html",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "is_published_site",
+          "type": "boolean"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "name": "provider_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "provider_url",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "thumbnail_height",
+          "type": "integer"
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "string"
+        },
+        {
+          "name": "thumbnail_width",
+          "type": "integer"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "width",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getPayments",
+      "method": "GET",
+      "path": "/v1/payments",
+      "summary": "Get payments",
+      "query": [
+        {
+          "name": "community_file_id",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "plugin_id",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "plugin_payment_token",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "user_id",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "widget_id",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "PaymentInformation",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getProjectFiles",
+      "method": "GET",
+      "path": "/v1/projects/{project_id}/files",
+      "summary": "[Deprecated] Get files in a project",
+      "deprecated": true,
+      "pathParams": [
+        {
+          "name": "project_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "branch_data",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "response": [
+        {
+          "name": "files",
+          "type": "object[]",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getProjectMeta",
+      "method": "GET",
+      "path": "/v1/projects/{project_id}/meta",
+      "summary": "[Deprecated] Get project metadata",
+      "deprecated": true,
+      "pathParams": [
+        {
+          "name": "project_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "created_at",
+          "type": "date-time",
+          "required": true
+        },
+        {
+          "name": "file_count",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "thumbnail_url",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "updated_at",
+          "type": "date-time",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getPublishedVariables",
+      "method": "GET",
+      "path": "/v1/files/{file_key}/variables/published",
+      "summary": "Get published variables",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getStyle",
+      "method": "GET",
+      "path": "/v1/styles/{key}",
+      "summary": "Get style",
+      "pathParams": [
+        {
+          "name": "key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "PublishedStyle",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamComponentSets",
+      "method": "GET",
+      "path": "/v1/teams/{team_id}/component_sets",
+      "summary": "Get team component sets",
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "after",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "page_size",
+          "in": "query",
+          "type": "number"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamComponents",
+      "method": "GET",
+      "path": "/v1/teams/{team_id}/components",
+      "summary": "Get team components",
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "after",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "page_size",
+          "in": "query",
+          "type": "number"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamFolders",
+      "method": "GET",
+      "path": "/v2/teams/{team_id}/folders",
+      "summary": "Get top-level folders in a team",
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "folders",
+          "type": "Folder[]",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamProjects",
+      "method": "GET",
+      "path": "/v1/teams/{team_id}/projects",
+      "summary": "[Deprecated] Get projects in a team",
+      "deprecated": true,
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "projects",
+          "type": "Project[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamStyles",
+      "method": "GET",
+      "path": "/v1/teams/{team_id}/styles",
+      "summary": "Get team styles",
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "query": [
+        {
+          "name": "after",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "before",
+          "in": "query",
+          "type": "number"
+        },
+        {
+          "name": "page_size",
+          "in": "query",
+          "type": "number"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getTeamWebhooks",
+      "method": "GET",
+      "path": "/v2/teams/{team_id}/webhooks",
+      "summary": "[Deprecated] Get team webhooks",
+      "deprecated": true,
+      "pathParams": [
+        {
+          "name": "team_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "webhooks",
+          "type": "WebhookV2[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getWebhook",
+      "method": "GET",
+      "path": "/v2/webhooks/{webhook_id}",
+      "summary": "Get a webhook",
+      "pathParams": [
+        {
+          "name": "webhook_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "plan_api_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status",
+          "required": true
+        },
+        {
+          "name": "team_id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getWebhookRequests",
+      "method": "GET",
+      "path": "/v2/webhooks/{webhook_id}/requests",
+      "summary": "Get webhook requests",
+      "pathParams": [
+        {
+          "name": "webhook_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "requests",
+          "type": "WebhookV2Request[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "getWebhooks",
+      "method": "GET",
+      "path": "/v2/webhooks",
+      "summary": "Get webhooks by context or plan",
+      "query": [
+        {
+          "name": "context",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "context_id",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "plan_api_id",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "pagination",
+          "type": "ResponsePagination"
+        },
+        {
+          "name": "webhooks",
+          "type": "WebhookV2[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "postComment",
+      "method": "POST",
+      "path": "/v1/files/{file_key}/comments",
+      "summary": "Add a comment to a file",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "body": [
+        {
+          "name": "client_meta"
+        },
+        {
+          "name": "comment_id",
+          "type": "string"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "client_meta",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "type": "date-time",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "order_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "parent_id",
+          "type": "string"
+        },
+        {
+          "name": "reactions",
+          "type": "Reaction[]",
+          "required": true
+        },
+        {
+          "name": "resolved_at",
+          "type": "date-time"
+        },
+        {
+          "name": "user",
+          "type": "User",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "postCommentReaction",
+      "method": "POST",
+      "path": "/v1/files/{file_key}/comments/{comment_id}/reactions",
+      "summary": "Add a reaction to a comment",
+      "pathParams": [
+        {
+          "name": "comment_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "body": [
+        {
+          "name": "emoji",
+          "type": "Emoji",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "postDevResources",
+      "method": "POST",
+      "path": "/v1/dev_resources",
+      "summary": "Create dev resources",
+      "body": [
+        {
+          "name": "dev_resources",
+          "type": "object[]",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "errors",
+          "type": "object[]"
+        },
+        {
+          "name": "links_created",
+          "type": "DevResource[]",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "postVariables",
+      "method": "POST",
+      "path": "/v1/files/{file_key}/variables",
+      "summary": "Create/modify/delete variables",
+      "pathParams": [
+        {
+          "name": "file_key",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "body": [
+        {
+          "name": "variableCollections",
+          "type": "VariableCollectionChange[]"
+        },
+        {
+          "name": "variableModeValues",
+          "type": "VariableModeValue[]"
+        },
+        {
+          "name": "variableModes",
+          "type": "VariableModeChange[]"
+        },
+        {
+          "name": "variables",
+          "type": "VariableChange[]"
+        }
+      ],
+      "response": [
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "meta",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "postWebhook",
+      "method": "POST",
+      "path": "/v2/webhooks",
+      "summary": "Create a webhook",
+      "body": [
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status"
+        },
+        {
+          "name": "team_id",
+          "type": "string"
+        }
+      ],
+      "response": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "plan_api_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status",
+          "required": true
+        },
+        {
+          "name": "team_id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "putDevResources",
+      "method": "PUT",
+      "path": "/v1/dev_resources",
+      "summary": "Update dev resources",
+      "body": [
+        {
+          "name": "dev_resources",
+          "type": "object[]",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "name": "errors",
+          "type": "object[]"
+        },
+        {
+          "name": "links_updated",
+          "type": "DevResource[]"
+        }
+      ]
+    },
+    {
+      "id": "putWebhook",
+      "method": "PUT",
+      "path": "/v2/webhooks/{webhook_id}",
+      "summary": "Update a webhook",
+      "pathParams": [
+        {
+          "name": "webhook_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "body": [
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status"
+        }
+      ],
+      "response": [
+        {
+          "name": "client_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "context_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "endpoint",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "event_type",
+          "type": "WebhookV2Event",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "passcode",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "plan_api_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "WebhookV2Status",
+          "required": true
+        },
+        {
+          "name": "team_id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "types": {
+    "AiUsageDailyRow": [
+      {
+        "name": "day",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "editor_type",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "license_group_id",
+        "type": "string"
+      },
+      {
+        "name": "license_group_name",
+        "type": "string"
+      },
+      {
+        "name": "metering_period_end",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "metering_period_start",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "plan_credits_sum",
+        "type": "integer",
+        "required": true
+      },
+      {
+        "name": "plan_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "seat_credits_sum",
+        "type": "integer",
+        "required": true
+      },
+      {
+        "name": "team_id",
+        "type": "string"
+      },
+      {
+        "name": "team_name",
+        "type": "string"
+      },
+      {
+        "name": "user_email",
+        "type": "string"
+      },
+      {
+        "name": "user_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "workspace_id",
+        "type": "string"
+      },
+      {
+        "name": "workspace_name",
+        "type": "string"
+      }
+    ],
+    "CanvasNode": [
+      {
+        "name": "backgroundColor",
+        "type": "RGBA",
+        "required": true
+      },
+      {
+        "name": "boundVariables",
+        "type": "object"
+      },
+      {
+        "name": "children",
+        "type": "SubcanvasNode[]",
+        "required": true
+      },
+      {
+        "name": "componentPropertyReferences",
+        "type": "object"
+      },
+      {
+        "name": "explicitVariableModes",
+        "type": "object"
+      },
+      {
+        "name": "exportSettings",
+        "type": "ExportSetting[]"
+      },
+      {
+        "name": "flowStartingPoints",
+        "type": "FlowStartingPoint[]",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "isFixed",
+        "type": "boolean"
+      },
+      {
+        "name": "locked",
+        "type": "boolean"
+      },
+      {
+        "name": "measurements",
+        "type": "Measurement[]"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "pluginData"
+      },
+      {
+        "name": "prototypeBackgrounds",
+        "type": "RGBA[]"
+      },
+      {
+        "name": "prototypeDevice",
+        "type": "PrototypeDevice",
+        "required": true
+      },
+      {
+        "name": "prototypeStartNodeID",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "rotation",
+        "type": "number"
+      },
+      {
+        "name": "scrollBehavior",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "sharedPluginData"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "visible",
+        "type": "boolean"
+      }
+    ],
+    "Comment": [
+      {
+        "name": "client_meta",
+        "required": true
+      },
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "file_key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "order_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "parent_id",
+        "type": "string"
+      },
+      {
+        "name": "reactions",
+        "type": "Reaction[]",
+        "required": true
+      },
+      {
+        "name": "resolved_at",
+        "type": "date-time"
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "Constraint": [
+      {
+        "name": "type",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      }
+    ],
+    "DevResource": [
+      {
+        "name": "file_key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "node_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "DocumentNode": [
+      {
+        "name": "boundVariables",
+        "type": "object"
+      },
+      {
+        "name": "children",
+        "type": "CanvasNode[]",
+        "required": true
+      },
+      {
+        "name": "componentPropertyReferences",
+        "type": "object"
+      },
+      {
+        "name": "explicitVariableModes",
+        "type": "object"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "isFixed",
+        "type": "boolean"
+      },
+      {
+        "name": "locked",
+        "type": "boolean"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "pluginData"
+      },
+      {
+        "name": "rotation",
+        "type": "number"
+      },
+      {
+        "name": "scrollBehavior",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "sharedPluginData"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "visible",
+        "type": "boolean"
+      }
+    ],
+    "Emoji": [],
+    "ExportSetting": [
+      {
+        "name": "constraint",
+        "type": "Constraint",
+        "required": true
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "FlowStartingPoint": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "nodeId",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "Folder": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "parent_folder_id",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "FrameInfo": [
+      {
+        "name": "backgroundColor",
+        "type": "string"
+      },
+      {
+        "name": "containingComponentSet"
+      },
+      {
+        "name": "containingStateGroup"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "nodeId",
+        "type": "string"
+      },
+      {
+        "name": "pageId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "pageName",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "Measurement": [
+      {
+        "name": "end",
+        "type": "MeasurementStartEnd",
+        "required": true
+      },
+      {
+        "name": "freeText",
+        "type": "string"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "offset",
+        "required": true
+      },
+      {
+        "name": "start",
+        "type": "MeasurementStartEnd",
+        "required": true
+      }
+    ],
+    "MeasurementStartEnd": [
+      {
+        "name": "nodeId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "side",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "PaymentInformation": [
+      {
+        "name": "date_of_purchase",
+        "type": "date-time"
+      },
+      {
+        "name": "payment_status",
+        "type": "PaymentStatus",
+        "required": true
+      },
+      {
+        "name": "resource_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "resource_type",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "user_id",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "PaymentStatus": [
+      {
+        "name": "type",
+        "type": "string"
+      }
+    ],
+    "Project": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "PrototypeDevice": [
+      {
+        "name": "presetIdentifier",
+        "type": "string"
+      },
+      {
+        "name": "rotation",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "size",
+        "type": "Size"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "PublishedComponent": [
+      {
+        "name": "containing_frame",
+        "type": "FrameInfo"
+      },
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "file_key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "node_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "thumbnail_url",
+        "type": "string"
+      },
+      {
+        "name": "updated_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "PublishedComponentSet": [
+      {
+        "name": "containing_frame",
+        "type": "FrameInfo"
+      },
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "file_key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "node_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "thumbnail_url",
+        "type": "string"
+      },
+      {
+        "name": "updated_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "PublishedStyle": [
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "file_key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "node_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "sort_position",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "style_type",
+        "type": "StyleType",
+        "required": true
+      },
+      {
+        "name": "thumbnail_url",
+        "type": "string"
+      },
+      {
+        "name": "updated_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "RGBA": [
+      {
+        "name": "a",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "b",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "g",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "r",
+        "type": "number",
+        "required": true
+      }
+    ],
+    "Reaction": [
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "emoji",
+        "type": "Emoji",
+        "required": true
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "ResponsePagination": [
+      {
+        "name": "next_page",
+        "type": "string"
+      },
+      {
+        "name": "prev_page",
+        "type": "string"
+      }
+    ],
+    "Role": [],
+    "Size": [
+      {
+        "name": "height",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": true
+      }
+    ],
+    "StyleType": [],
+    "SubcanvasNode": [],
+    "User": [
+      {
+        "name": "handle",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "img_url",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "VariableChange": [],
+    "VariableCollectionChange": [],
+    "VariableModeChange": [],
+    "VariableModeValue": [
+      {
+        "name": "modeId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "VariableValue",
+        "required": true
+      },
+      {
+        "name": "variableId",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "VariableValue": [],
+    "Version": [
+      {
+        "name": "created_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "thumbnail_url",
+        "type": "string"
+      },
+      {
+        "name": "user",
+        "type": "User",
+        "required": true
+      }
+    ],
+    "WebhookV2": [
+      {
+        "name": "client_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "context",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "context_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "endpoint",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "event_type",
+        "type": "WebhookV2Event",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "passcode",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "plan_api_id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "WebhookV2Status",
+        "required": true
+      },
+      {
+        "name": "team_id",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "WebhookV2Event": [],
+    "WebhookV2Request": [
+      {
+        "name": "error_msg",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "request_info",
+        "type": "WebhookV2RequestInfo",
+        "required": true
+      },
+      {
+        "name": "response_info",
+        "type": "WebhookV2ResponseInfo",
+        "required": true
+      },
+      {
+        "name": "webhook_id",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "WebhookV2RequestInfo": [
+      {
+        "name": "endpoint",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "payload",
+        "type": "object",
+        "required": true
+      },
+      {
+        "name": "sent_at",
+        "type": "date-time",
+        "required": true
+      }
+    ],
+    "WebhookV2ResponseInfo": [
+      {
+        "name": "received_at",
+        "type": "date-time",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "WebhookV2Status": []
+  }
+}

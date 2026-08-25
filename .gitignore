@@ -1,0 +1,24 @@
+# deny everything, then allow exactly what the repo tracks.
+# .develop/ is orchestration scratch (specs, notes, agent prompts) and stays
+# untracked forever — never add an un-ignore rule for it.
+/*
+
+!/.gitignore
+!/README.md
+!/LICENSE
+!/Makefile
+!/go.mod
+!/go.sum
+!/main.go
+!/.goreleaser.yml
+!/cmd/
+!/internal/
+!/specs/
+!/scripts/
+!/docs/
+!/.github/
+
+# never track build output or local editor state, even if allow-listed above
+/figma
+*.exe
+.DS_Store
