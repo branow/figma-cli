@@ -23,7 +23,15 @@ checksum:
   name_template: checksums.txt
 
 homebrew_casks:
-  - name: figma
+  # The cask token is figma-cli, not figma: homebrew/cask already owns
+  # "figma" for the Figma desktop app, and two casks with one token cannot
+  # coexist in the Caskroom — an unqualified `brew upgrade figma` resolves to
+  # the official cask and replaces this CLI with the desktop app. The
+  # installed command stays `figma`.
+  - name: figma-cli
+    # The cask token drives the binary stanza by default, which would link the
+    # command as figma-cli and point at a file the archive does not contain.
+    binary: figma
     repository:
       owner: branow
       name: homebrew-tap

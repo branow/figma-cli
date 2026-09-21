@@ -13,7 +13,7 @@ keychain, JSON output, meaningful exit codes, and shell completion.
 
 ```sh
 # Homebrew (macOS / Linux)
-brew install branow/tap/figma
+brew install branow/tap/figma-cli
 
 # Scoop (Windows)
 scoop bucket add branow https://github.com/branow/scoop-bucket
