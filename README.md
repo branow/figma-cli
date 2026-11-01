@@ -26,8 +26,9 @@ go install github.com/branow/figma-cli@latest   # installs as "figma-cli"
 Or download a prebuilt binary for your platform from the
 [latest release](https://github.com/branow/figma-cli/releases/latest).
 
-macOS note: release binaries are not Apple-notarized. The Homebrew cask strips
-the quarantine attribute automatically; for a browser-downloaded archive run
+macOS note: release binaries are signed with a self-signed certificate, not
+Apple-notarized. The Homebrew cask strips the quarantine attribute
+automatically; for a browser-downloaded archive run
 `xattr -d com.apple.quarantine ./figma` once.
 
 ## Authenticate
@@ -49,8 +50,17 @@ figma auth logout
 
 The token is stored in the OS keychain (macOS Keychain, libsecret, or Windows
 Credential Manager) — never in a config file, command output, logs, or error
-messages. When no keychain backend exists at all, it falls back to a `0600`
-file with a warning.
+messages. On macOS the entry is written through the Security framework
+directly, so its access control names `figma` and other processes cannot read
+the token without your approval. When no keychain backend exists at all, it
+falls back to a `0600` file with a warning.
+
+A token stored by an older `figma` (or another build of it) asks for keychain
+approval once on the next run from a terminal, and is then stored again under
+the current binary so later runs are silent. Without a terminal the command
+fails with exit code 4 and the remedy, e.g.
+`security delete-generic-password -s figma-cli -a default` followed by
+`figma auth login`.
 
 ## Everyday commands
 
@@ -123,7 +133,7 @@ JSON body from a file or stdin.
   | 1 | generic / API business error |
   | 2 | cancelled |
   | 3 | validation (bad flags, unknown command/operation, invalid enum value) |
-  | 4 | auth (401/403) |
+  | 4 | auth (not logged in, keychain entry awaiting approval, 401/403) |
   | 5 | not found (404) |
   | 6 | rate-limited (429, or a 5xx with Retry-After) |
 

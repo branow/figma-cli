@@ -3,10 +3,12 @@ package cmd
 import (
 	"context"
 	"encoding/json"
+	"errors"
 
 	"github.com/spf13/cobra"
 
 	"github.com/branow/figma-cli/internal/cmdutil"
+	"github.com/branow/figma-cli/internal/credentials"
 	"github.com/branow/figma-cli/internal/output"
 )
 
@@ -35,9 +37,14 @@ type authStatus struct {
 
 func runAuthStatus(ctx context.Context, f *cmdutil.Factory) error {
 	profile := f.ActiveProfile()
+	// Only a missing entry means "not logged in": a keychain that holds
+	// the entry but will not release it says how to fix that instead.
 	creds, err := f.CredentialsStore.Get(profile)
-	if err != nil {
+	if errors.Is(err, credentials.ErrNotFound) {
 		return cmdutil.ErrNotLoggedIn
+	}
+	if err != nil {
+		return err
 	}
 
 	status := authStatus{Profile: profile, Kind: creds.Kind}

@@ -4,6 +4,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -161,8 +162,11 @@ func newRealFactory() (*cmdutil.Factory, error) {
 func newClient(f *cmdutil.Factory) (figmaapi.Client, error) {
 	profile := f.ActiveProfile()
 	creds, err := f.CredentialsStore.Get(profile)
-	if err != nil {
+	if errors.Is(err, credentials.ErrNotFound) {
 		return nil, cmdutil.ErrNotLoggedIn
+	}
+	if err != nil {
+		return nil, err
 	}
 	baseURL, err := figmaapi.BaseURL()
 	if err != nil {

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/branow/gokey"
+
 	"github.com/branow/figma-cli/internal/cmdutil"
 	"github.com/branow/figma-cli/internal/figmaapi"
 )
@@ -18,6 +20,7 @@ func TestExitCode(t *testing.T) {
 		{"generic", fmt.Errorf("boom"), cmdutil.ExitError},
 		{"cancelled", cmdutil.ErrCancelled, cmdutil.ExitCancelled},
 		{"not logged in", cmdutil.ErrNotLoggedIn, cmdutil.ExitAuth},
+		{"keychain entry blocked", fmt.Errorf("cannot read the keychain entry: %w", gokey.ErrBlocked), cmdutil.ExitAuth},
 		{"validation", &cmdutil.ValidationError{Message: "bad flag"}, cmdutil.ExitValidation},
 		{"api 401", &figmaapi.APIError{Status: 401, Message: "unauthorized"}, cmdutil.ExitAuth},
 		{"api 403", &figmaapi.APIError{Status: 403, Message: "forbidden"}, cmdutil.ExitAuth},
