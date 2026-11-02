@@ -68,12 +68,44 @@ then a hidden terminal prompt. Before storing, it verifies against
 an unreachable host or a 5xx is inconclusive and stores the token with a
 warning, so a transient outage never locks out a valid token.
 
-Secrets live only in `credentials/`. The plaintext fallback is **guarded**: it
-is used only on `keyring.ErrUnsupportedPlatform` (no backend at all). A
-present-but-errored keychain (locked, denied, dbus hiccup) is treated as
-transient and returns an error rather than silently writing the token to disk;
-`FIGMA_ALLOW_PLAINTEXT_KEYRING=1` restores fall-back-on-any-error for users
-who want it.
+Secrets live only in `credentials/`, stored in the OS keychain through
+`branow/gokey`: macOS Keychain via the Security framework called directly
+(loaded at run time with `ebitengine/purego`, so no cgo and no loss of
+cross-compilation), Windows Credential Manager, Linux Secret Service. Calling
+the framework rather than shelling out to `/usr/bin/security` is what keeps
+the item's access control naming this binary instead of that tool, which would
+leave the token readable by any process running as the user.
+`internal/credentials` keeps the policy around it:
+
+- The plaintext fallback (0600) is **guarded**: it is used only when `gokey`
+  reports no credential store on the machine (`gokey.ErrUnavailable`), with a
+  warning at write time. A keychain that is present but fails for any other
+  reason surfaces that failure rather than silently writing the token to disk.
+- An entry the keychain refuses to release (`gokey.ErrBlocked`) fails with a
+  remedy naming the profile and
+  `security delete-generic-password -s figma-cli -a <profile>`. Only
+  `credentials.ErrNotFound` means "not logged in"; a blocked entry exits 4.
+- Every read is silent first. Only when the keychain refuses it, and a
+  terminal can show the dialog (`IOStreams.CanPrompt()`), is it repeated with
+  the dialog allowed; an unattended run fails with the remedy instead of
+  hanging on a dialog nobody can see. An entry released that way belongs to
+  another build and is stored again by this one, so the next run is silent.
+- Entries written by the `go-keyring` versions carry the permissive access
+  control, are owned by `/usr/bin/security`, and store the value as
+  `go-keyring-base64:<base64>` (`go-keyring-encoded:<hex>` before v0.2). The
+  first read after approval decodes that layout and stores the value again as
+  plain JSON. The keychain refuses to let this binary replace an item another
+  program owns (OSStatus -25244), so on exactly that refusal the old item is
+  deleted through `/usr/bin/security` (delete only, no secret passes through
+  it) and added again under this binary's own identity. `auth login` over an
+  old entry takes the same path. A rewrite that still fails is a warning, not
+  an error: the read succeeds and the dialog keeps coming back.
+- Release darwin binaries are signed with a self-signed release certificate
+  (`scripts/sign.sh`, identifier `com.branow.figma`, run by goreleaser on a
+  macOS runner). That keeps the item's access list valid across upgrades.
+  Without an Apple Team ID macOS still partitions the item by cdhash, so the
+  first read after each upgrade asks once per profile, and the re-save above
+  makes it once.
 
 ## Profiles and configuration
 
@@ -124,7 +156,7 @@ they become process codes:
 | 1 | generic / API business error |
 | 2 | `ErrCancelled` |
 | 3 | `ValidationError`, unknown/unsupported operation |
-| 4 | `ErrNotLoggedIn`, API 401/403 |
+| 4 | `ErrNotLoggedIn`, `gokey.ErrBlocked` (keychain entry awaiting approval), API 401/403 |
 | 5 | API 404 |
 | 6 | API 429, or a 5xx flagged `RateLimited` (a Retry-After) |
 
@@ -200,12 +232,19 @@ buffers and the exit classification. Logic-dense units are tested directly:
 `Route`, response/error parsing, retry/backoff, config precedence, the guarded
 credential fallback, `figmaurl` parsing and node-id normalization, the asset
 downloader, and the catalog against the real embedded JSON. No test makes a
-live API call.
+live API call. In `internal/credentials` the `gokey` calls are struct fields,
+so the fallback and authorization branches are driven by an in-memory stand-in
+— `go test ./...` never touches a real keychain; the round trip against the
+live OS credential store lives in `gokey` itself, behind its `integration`
+build tag.
 
 ## Distribution
 
 `goreleaser` builds `CGO_ENABLED=0` binaries for darwin/linux/windows ×
-amd64/arm64, publishes a Homebrew cask to `branow/homebrew-tap` (with a
+amd64/arm64, signs the darwin builds with the release certificate
+(`scripts/sign.sh`, so the release runs on `macos-latest` and needs the
+`MACOS_SIGN_P12`, `MACOS_SIGN_P12_PASSWORD` and `MACOS_SIGN_IDENTITY`
+secrets), publishes a Homebrew cask to `branow/homebrew-tap` (with a
 quarantine-strip post-install hook, since the binaries are not notarized), a
 Scoop manifest to `branow/scoop-bucket`, and deb/rpm/apk via nfpm. CI gates on
 gofmt, `go vet`, tests, a catalog-is-current check, and a cross-compile.
